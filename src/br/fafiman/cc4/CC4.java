@@ -25,29 +25,32 @@ public class CC4 {
         if (args.length == 0) {
             String arquivos[] = {"teste0.CC4", "teste1.CC4", "teste2.CC4", "teste3.CC4", "teste4.CC4", "teste5.CC4"};
             for (String arquivo : arquivos) {
-                List<String> tokens = getTokens("exemplos/"+arquivo);
-                for (String s : tokens) {
-                    System.out.println(s);
-                }
+                List<Token> tokens = getTokens("exemplos/" + arquivo);
+                //mostraTokens(tokens);
+                analiseSintatica(tokens);
                 System.out.println("\n\n");
             }
-            
 
         } else if (args.length == 1) {
             System.out.println("Compilando " + args[0]);
             //mostraArquivo(args[0]);
-            List<String> tokens = getTokens(args[0]);
-            for (String s : tokens) {
-                System.out.println(s);
-            }
+            List<Token> tokens = getTokens(args[0]);
+            analiseSintatica(tokens);
+            //mostraTokens(tokens);
 
         } else {
             System.out.println("Você deve utilizar java CC4 nomedoarquivo.cc4");
         }
     }
 
-    private static List<String> getTokens(String nomeArquivo) {
-        List<String> aRetornar = new ArrayList<>();
+    public static void mostraTokens(List<Token> tokens) {
+        for (Token s : tokens) {
+            System.out.println(s);
+        }
+    }
+
+    private static List<Token> getTokens(String nomeArquivo) {
+        List<Token> aRetornar = new ArrayList<>();
         File arquivo = new File(nomeArquivo);
         try {
             BufferedReader br = new BufferedReader(new FileReader(arquivo));
@@ -56,29 +59,33 @@ public class CC4 {
                 StringTokenizer st = new StringTokenizer(linha, "^ =*,+-/<>", true);
                 String aspas = null;
                 while (st.hasMoreTokens()) {
-                    String tk = st.nextToken();
-                    if (tk.startsWith("\"")) {
-
-                        aspas = tk;
+                    String texto = st.nextToken();
+                    if (texto.startsWith("\"")) {
+                        aspas = texto;
                         continue;
-                    } else if (tk.endsWith("\"")) {
+                    } else if (texto.endsWith("\"")) {
 
-                        tk = aspas + tk;
+                        texto = aspas + texto;
                         aspas = null;
                     } else if (aspas != null) {
 
-                        aspas = aspas + tk;
+                        aspas = aspas + texto;
                         continue;
                     } else {
-                        tk = tk.trim();
+                        texto = texto.trim();
                     }
-                    if (tk.isEmpty()) {
+                    if (texto.isEmpty()) {
                         continue;
                     }
-                    aRetornar.add(tk);
+                    Token tk = new Token();
+                    tk.texto = texto;
+                    tk.simbolo = "coisa";
+                    aRetornar.add(classificaToken(tk));
                 }
-                String tk = "|ENTER|";
-                aRetornar.add(tk);
+                Token tk = new Token();
+                tk.texto = "|ENTER|";
+                tk.simbolo = "coisa";
+                aRetornar.add(classificaToken(tk));
             }
         } catch (Exception ex) {
             System.out.println("Arquivo não encontrado:" + nomeArquivo);
@@ -98,6 +105,44 @@ public class CC4 {
         } catch (Exception ex) {
             System.out.println("Arquivo não encontrado:" + nomeArquivo);
         }
+    }
+
+    private static Token classificaToken(Token tk) {
+        for (String palavraReservada : Constantes.RESERVADAS) {
+            if (palavraReservada.equals(tk.texto)) {
+                tk.simbolo = palavraReservada.toUpperCase();
+            }
+        }
+        for (String palavraReservada : Constantes.SIMBOLOS) {
+            if (palavraReservada.equals(tk.texto)) {
+                tk.simbolo = "OPERADOR";
+            }
+        }
+
+        if ("|ENTER|".equals(tk.texto)) {
+            tk.simbolo = "ENTER";
+        }
+        if (tk.texto.startsWith("\"")) {
+            tk.simbolo = "MENSAGEM";
+        }
+        for (int i = 0; i < 10; i++) {
+            if (tk.texto.startsWith(""+i)) {
+                tk.simbolo = "LITERAL";
+            }
+        }
+
+        if (tk.simbolo.equals("coisa")) {
+            tk.simbolo = "IDENTIFICADOR";
+        }
+        return tk;
+    }
+    
+    
+
+
+    private static void analiseSintatica(List<Token> tokens) {
+        
+
     }
 
 }

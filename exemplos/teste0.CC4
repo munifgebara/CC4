@@ -1,5 +1,8 @@
 programa Teste0
+variaveis N
 procedimento principal
+   N=2014
    escrever "Ola Mundo"
+   escrever N
 fimprocedimento
 
