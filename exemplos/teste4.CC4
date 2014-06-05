@@ -1,0 +1,16 @@
+Programa teste4
+Variaveis a lm lme t l
+Procedimento quantidadetinta
+	Escrever "altura"
+	Ler a
+	Escrever "largura parede maior"
+	Ler lm
+	Escrever "largura parede menor"
+	Ler lme
+	t = lm*lme+2*a*lm+2*a*lme
+	l = t/12
+	Escrever "latas" 
+	Escrever l
+	Escrever "total"
+	Escrever t
+fimprocedimento

@@ -1,0 +1,17 @@
+programa teste2                                      
+variaveis fahrenheit celsius aux aux2                
+procedimento principal
+   escrever "Digite a temperatura em fahrenheit: "
+   ler fahrenheit
+   aux = fahrenheit-32
+   celsius = aux*5/9
+   se celsius <= 17
+      escrever "Esta Frio" 
+   senao
+      se celsius <= 25
+         escrever "Temperatura Agradavel"
+      senao
+         escrever "Esta Calor"
+      fimse
+   fimse   	  
+fimprocedimento

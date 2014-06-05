@@ -1,0 +1,10 @@
+programa teste1
+variaveis volume raio altura
+procedimento calculavolume
+   escrever "informe raio"
+   ler raio
+   escrever "informe altura"
+   ler altura
+   volume = 3.14*raio*altura
+   escrever volume
+fimprocedimento 

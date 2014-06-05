@@ -1,0 +1,5 @@
+programa Teste0
+procedimento principal
+   escrever "Ola Mundo"
+fimprocedimento
+

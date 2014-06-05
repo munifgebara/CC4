@@ -1,0 +1,15 @@
+programa teste5
+variaveis a b aux
+procedimento principal
+	escrever "Digite o valor de A"
+	ler a
+	escrever "Digite o valor de B"
+	ler b
+	aux = a
+	a   = b
+	b   = aux
+	escrever "Valor de A"
+	escrever a
+	escrever "Valor de B"
+	escrever b
+fimprocedimento

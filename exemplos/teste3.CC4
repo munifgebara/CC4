@@ -1,0 +1,11 @@
+programa teste3
+variaveis t vm d c
+procedimento mediacombustivel
+   escrever "digite o tempo gasto"
+   ler t
+   escrever "digite a velocidade media"
+   d = t*vm
+   c = d/12
+   escrever "a qtde de combustivel gasto é:"
+   escrever c
+fimprocedimento
